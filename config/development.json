@@ -1,0 +1,6 @@
+{
+  "env": "development",
+  "mongo": {
+    "URL": "mongo-dev-url"
+  }
+}

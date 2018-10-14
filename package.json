@@ -1,0 +1,28 @@
+{
+  "name": "NewProdAPI",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "babel-node app/server",
+    "lint": "eslint app",
+    "lint:fix": "eslint --fix app",
+    "dev": "nodemon --exec 'yarn lint && yarn start'"
+  },
+  "dependencies": {
+    "config": "^2.0.1",
+    "keymirror": "^0.1.1",
+    "koa": "^2.5.3"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-eslint": "^10.0.1",
+    "babel-plugin-transform-async-to-generator": "^6.24.1",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-stage-0": "^6.24.1",
+    "eslint": "^5.7.0",
+    "eslint-config-google": "^0.11.0",
+    "nodemon": "^1.18.4"
+  }
+}
