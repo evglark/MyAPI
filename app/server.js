@@ -1,11 +1,11 @@
 import app from './app'
 
-import { PORT, MONGO_URL } from './config'
-import ENV from './utils/env'
+import { ENV, PORT, MONGO_URL } from './config'
 
 const server = app.listen(PORT, (err) => {
   if (err) console.log(err);
   console.log(`${ENV} MODE ON`);
+
 
   console.log(`\n//...`);
   console.log(`Mongodb is running on: ${MONGO_URL}`);

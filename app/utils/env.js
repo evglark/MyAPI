@@ -1,8 +1,14 @@
-import envs from '../constants/envs'
+export const envs = {
+  development: 'development',
+  production: 'production',
+  test: 'test',
+};
 
-const ENV = process.env.NODE_ENV || 'development'
+const env = process.env.NODE_ENV || 'development'
 
-export const IS_DEV = ENV === envs.development
-export const IS_PROD = ENV === envs.production
+if (!envs[env]) throw Error(`Unknown NODE_ENV ${env}`);
 
-export default ENV
+export const IS_DEV = env === envs.development
+export const IS_PROD = env === envs.production
+
+export default env

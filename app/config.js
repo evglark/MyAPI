@@ -1,9 +1,10 @@
 import config from 'config'
+import dotenv from 'dotenv'
 
-import envs from './constants/envs'
 import env from './utils/env'
 
-if (!envs[env]) throw Error(`Unknown env ${env}`);
+dotenv.config()
 
-export const PORT = process.env.PORT || config.get('port');
+export const ENV = env
+export const PORT = process.env.PORT || config.get('PORT');
 export const MONGO_URL = process.env.MONGO_URL || config.get('mongo.URL');

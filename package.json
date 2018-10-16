@@ -1,5 +1,5 @@
 {
-  "name": "NewProdAPI",
+  "name": "new-prod-api",
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "config": "^2.0.1",
-    "keymirror": "^0.1.1",
+    "dotenv": "^6.1.0",
     "koa": "^2.5.3"
   },
   "devDependencies": {
