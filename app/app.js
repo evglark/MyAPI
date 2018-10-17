@@ -1,8 +1,9 @@
 import Koa from 'koa'
 
-import connectorsInit from './connectors'
+import { MONGO_URL } from './config'
+import { Connectors as connect } from './connectors'
 
-connectorsInit();
+connect.mongoose(MONGO_URL);
 const app = new Koa();
 
 app.use(async (ctx) => {

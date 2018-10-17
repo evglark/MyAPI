@@ -1,10 +1,3 @@
-import { MONGO_URL } from '../config'
-import mongooseConnector from './mongoose-connector'
+import mongoose from './mongoose-connector'
 
-const connectorsInit = () => {
-  mongooseConnector(MONGO_URL)
-}
-
-export { mongooseConnector }
-
-export default connectorsInit
+export const Connectors = { mongoose }
