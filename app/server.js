@@ -1,6 +1,9 @@
 import app from './app'
 
-import { ENV, PORT } from './config'
+import { ENV, PORT, MONGO_URL } from './config'
+import { Connectors as connect } from './connectors'
+
+connect.mongoose(MONGO_URL);
 
 const server = app.listen(PORT, (err) => {
   if (err) console.log(err);
