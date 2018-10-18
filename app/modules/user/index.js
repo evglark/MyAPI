@@ -29,7 +29,7 @@ const UserSchema = new Schema({
 
 UserSchema.statics.createFields = ['email', 'firstName', 'lastName', 'password'];
 
-UserSchema.pre('save', function(next) {
+UserSchema.pre('save', (next) => {
   if (!this.isModified('password')) return next();
 
   const salt = bcrypt.genSaltSync(10);

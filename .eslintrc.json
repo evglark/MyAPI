@@ -13,6 +13,7 @@
     "object-curly-spacing": 0,
     "max-len": 0,
     "require-jsdoc": 0,
-    "semi": [0, "always"]
+    "semi": [0, "always"],
+    "no-invalid-this": 0
   }
 }
