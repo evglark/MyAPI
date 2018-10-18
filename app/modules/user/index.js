@@ -29,7 +29,7 @@ const UserSchema = new Schema({
 
 UserSchema.statics.createFields = ['email', 'firstName', 'lastName', 'password'];
 
-UserSchema.pre('save', (next) => {
+UserSchema.pre('save', function(next) {
   if (!this.isModified('password')) return next();
 
   const salt = bcrypt.genSaltSync(10);
@@ -39,8 +39,12 @@ UserSchema.pre('save', (next) => {
   next();
 });
 
-UserSchema.methods.comparePasswords = (password) => bcrypt.compareSync(password, this.password);
+UserSchema.methods.comparePasswords = function(password) {
+  return bcrypt.compareSync(password, this.password);
+}
 
-UserSchema.statics.findOneWithPublicFields = (params, cb) => this.findOne(params, cb).select({ password: 0, _id: 0, __v: 0 });
+UserSchema.statics.findOneWithPublicFields = function(params, cb) {
+  this.findOne(params, cb).select({ password: 0, _id: 0, __v: 0 });
+}
 
 export default mongoose.model('user', UserSchema);
