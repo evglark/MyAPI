@@ -2,5 +2,8 @@
   "env": "development",
   "mongo": {
     "URL": "mongo-dev-url"
+  },
+  "JsonWebToken": {
+    "secret": "HS512"
   }
 }
