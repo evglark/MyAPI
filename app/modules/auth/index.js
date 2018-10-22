@@ -1,12 +1,12 @@
 import Router from 'koa-router'
 import authController from './controllers'
-import { checkUser } from '../../handlers/check'
+import Check from '../../handlers/check'
 
 const router = new Router({ prefix: '/auth' });
 
 router
     .post('/signup', authController.signUp)
     .post('/signin', authController.signIn)
-    .get('/private', checkUser(), (ctx) => ctx.body = ctx.user)
+    .get('/private', Check.user(), (ctx) => ctx.body = ctx.user)
 
 export default router.routes();
