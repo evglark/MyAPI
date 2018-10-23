@@ -1,6 +1,6 @@
 import _ from 'lodash'
-import User from '../../user'
-import Services from '../../../services'
+import User from '../user'
+import Services from '../../services'
 
 export default {
   async signUp(ctx) {
