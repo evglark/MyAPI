@@ -1,50 +1,17 @@
-import mongoose, { Schema } from 'mongoose'
-import bcrypt from 'bcrypt'
+import mongoose from 'mongoose'
 import uniqueValidator from 'mongoose-unique-validator'
+
+import userSchema from './schema'
+import userStatics from './statics'
+import userMethods from './methods'
+import userMiddleware from './middleware'
 
 mongoose.plugin(uniqueValidator);
 
-const UserSchema = new Schema({
-  email: {
-    type: String,
-    unique: 'User with email "{VALUE}" already exist',
-    lowercase: true,
-    required: 'Email is required',
-  },
-  password: {
-    type: String,
-    required: 'Password is required',
-  },
-  firstName: {
-    type: String,
-    lowercase: true,
-    required: true,
-  },
-  lastName: {
-    type: String,
-    lowercase: true,
-    required: true,
-  },
-}, { timestamp: true });
+const UserSchema = userSchema
+UserSchema.statics = userStatics
+UserSchema.methods = userMethods
 
-UserSchema.statics.createFields = ['email', 'firstName', 'lastName', 'password'];
-
-UserSchema.pre('save', function(next) {
-  if (!this.isModified('password')) return next();
-
-  const salt = bcrypt.genSaltSync(10);
-
-  this.password = bcrypt.hashSync(this.password, salt);
-
-  next();
-});
-
-UserSchema.methods.comparePasswords = function(password) {
-  return bcrypt.compareSync(password, this.password);
-}
-
-UserSchema.statics.findOneWithPublicFields = function(params, cb) {
-  this.findOne(params, cb).select({ password: 0, _id: 0, __v: 0 });
-}
+UserSchema.pre('save', userMiddleware.preSave);
 
 export default mongoose.model('user', UserSchema);

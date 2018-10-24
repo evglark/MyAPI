@@ -1,12 +1,9 @@
 import Router from 'koa-router'
 import authController from './controllers'
-import Check from '../../handlers/check'
 
-const router = new Router({ prefix: '/auth' });
-
-router
+const router = new Router({ prefix: '/auth' })
     .post('/signup', authController.signUp)
     .post('/signin', authController.signIn)
-    .get('/private', Check.user(), (ctx) => ctx.body = ctx.user)
+    .get('/private', authController.getInfoByToken)
 
 export default router.routes();

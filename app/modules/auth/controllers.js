@@ -9,6 +9,7 @@ export default {
     const user = await User.findOne({ _id });
     ctx.body = { data: user }
   },
+
   async signIn(ctx) {
     const { email, password } = ctx.request.body
     if (!email || !password) ctx.throw(400, { message: 'Invalid data' });
@@ -20,5 +21,11 @@ export default {
 
     const token = await Services.JWT.genToken({ email });
     ctx.body = { data: token }
+  },
+
+  async getInfoByToken(ctx) {
+    if (!ctx.user) ctx.throw(403, { message: 'Forbidden' });
+
+    ctx.body = ctx.user
   }
 };
