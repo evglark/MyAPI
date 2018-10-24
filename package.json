@@ -5,14 +5,16 @@
   "license": "MIT",
   "scripts": {
     "start": "babel-node app/server",
+    "dev": "nodemon --exec 'yarn lint && yarn start'",
     "lint": "eslint app",
     "lint:fix": "eslint --fix app",
-    "dev": "nodemon --exec 'yarn lint && yarn start'"
+    "seed": "babel-node app/seeds"
   },
   "dependencies": {
     "bcrypt": "^3.0.1",
     "config": "^2.0.1",
     "dotenv": "^6.1.0",
+    "faker": "^4.1.0",
     "jsonwebtoken": "^8.3.0",
     "koa": "^2.5.3",
     "koa-bodyparser": "^4.2.1",

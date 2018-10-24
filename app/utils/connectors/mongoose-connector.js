@@ -1,5 +1,5 @@
 import mongoose from 'mongoose'
-import server from '../../server';
+import server from '../../server'
 
 mongoose.Promise = Promise
 
@@ -8,7 +8,10 @@ export default (mongoURL) => {
 
   return mongoose
       .connect(mongoURL, { useCreateIndex: true, useNewUrlParser: true })
-      .then((mongodb) => console.log('Mongo connected'))
+      .then((mongodb) => {
+        console.log('Mongo connected');
+        return mongodb
+      })
       .catch(async (err) => {
         await console.log(err);
         server.close();
