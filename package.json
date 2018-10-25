@@ -8,7 +8,7 @@
     "dev": "nodemon --exec 'yarn lint && yarn start'",
     "lint": "eslint app",
     "lint:fix": "eslint --fix app",
-    "seed": "babel-node app/seeds"
+    "seed": "babel-node seeds"
   },
   "dependencies": {
     "bcrypt": "^3.0.1",
