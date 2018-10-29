@@ -8,6 +8,7 @@ export default {
     const { _id } = await User.create(userData);
     const user = await User.findOne({ _id });
 
+    ctx.status = 201
     ctx.body = { data: user }
   },
 
