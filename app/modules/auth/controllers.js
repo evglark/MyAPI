@@ -4,9 +4,10 @@ import Services from '../../services'
 
 export default {
   async signUp(ctx) {
-    const { _id } = await User.create(_.pick(ctx.request.body, User.createFields));
-
+    const userData = _.pick(ctx.request.body, User.createFields)
+    const { _id } = await User.create(userData);
     const user = await User.findOne({ _id });
+
     ctx.body = { data: user }
   },
 
