@@ -1,6 +1,6 @@
 import app from './app'
 
-import { ENV, PORT, MONGO_URL } from './config'
+import { ENV, PORT, MONGO_URL } from '../config'
 import { Connectors as connect } from './utils/connectors'
 
 connect.mongoose(MONGO_URL);

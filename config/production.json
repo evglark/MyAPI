@@ -1,7 +1,0 @@
-{
-  "PORT": 4000,
-  "env": "production",
-  "mongo": {
-    "URL": "mongo-prod-url"
-  }
-}

@@ -9,7 +9,7 @@ export default (mongoURL) => {
   return mongoose
       .connect(mongoURL, { useCreateIndex: true, useNewUrlParser: true })
       .then((mongodb) => {
-        console.log('Mongo connected');
+        console.log(`Mongo connected to ${mongodb.connections[0].host}`);
         return mongodb
       })
       .catch(async (err) => {

@@ -1,5 +1,5 @@
 import JsonWebToken from 'jsonwebtoken'
-import { JW_TOKEN } from '../config'
+import { JW_TOKEN } from '../../config'
 
 export default {
   genToken(data) {
