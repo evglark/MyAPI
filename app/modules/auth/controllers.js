@@ -1,5 +1,5 @@
 import _ from 'lodash'
-import User from '../user'
+import User from '../user/models'
 import Services from '../../services'
 
 export default {

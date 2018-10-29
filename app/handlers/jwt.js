@@ -1,5 +1,5 @@
 import Services from '../services'
-import User from '../modules/user'
+import User from '../modules/user/models'
 
 export default () => async (ctx, next) => {
   const { authorization } = ctx.headers;
