@@ -18,7 +18,6 @@ export default {
 
     const user = await User.findOne({ email });
     if (!user) ctx.throw(400, { message: 'User not found' });
-
     if (!user.comparePasswords(password)) ctx.throw(400, { message: 'Invalid password' });
 
     const token = await Services.JWT.genToken({ email });
@@ -27,7 +26,6 @@ export default {
 
   async getInfoByToken(ctx) {
     if (!ctx.user) ctx.throw(403, { message: 'Forbidden' });
-
     ctx.body = ctx.user
   }
 };

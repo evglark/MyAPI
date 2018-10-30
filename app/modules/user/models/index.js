@@ -3,13 +3,13 @@ import uniqueValidator from 'mongoose-unique-validator'
 import bcrypt from 'bcrypt'
 
 import userSchema from './schema'
-// import userStatics from './statics'
+import userStatics from './statics'
 import userMethods from './methods'
 
 mongoose.plugin(uniqueValidator);
 
 const UserSchema = userSchema
-UserSchema.statics.createFields = ['email', 'firstName', 'lastName', 'password']
+UserSchema.statics = userStatics
 UserSchema.methods = userMethods
 
 // Middleware
