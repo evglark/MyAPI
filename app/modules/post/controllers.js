@@ -50,5 +50,10 @@ export default {
 
     await post.remove();
     ctx.body = { data: { id: _id} };
+  },
+
+  getPost(ctx) {
+    const { post } = ctx;
+    ctx.body = { data: _.pick(post, Post.createFields) };
   }
 };

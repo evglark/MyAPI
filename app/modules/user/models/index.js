@@ -20,7 +20,7 @@ UserSchema.pre('save', function(next) {
     this.password = bcrypt.hashSync(this.password, salt);
   }
 
-  if (!this.hash) this.hash = uuid()
+  if (!this.hash) this.hash = uuid();
 
   next();
 });
