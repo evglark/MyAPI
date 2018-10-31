@@ -3,7 +3,7 @@ import authController from './controllers'
 
 const router = new Router({ prefix: '/auth' })
     .post('/signup', authController.signUp)
-    .post('/signin', authController.signIn)
+    .post('/login', authController.logIn)
     .get('/private', authController.getInfoByToken)
 
 export default router.routes();

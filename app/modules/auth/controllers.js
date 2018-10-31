@@ -12,7 +12,7 @@ export default {
     ctx.body = { data: user }
   },
 
-  async signIn(ctx) {
+  async logIn(ctx) {
     const { email, password } = ctx.request.body
     if (!email || !password) ctx.throw(400, { message: 'Invalid data' });
 
