@@ -21,14 +21,14 @@ export default {
     if (!ctx.user) ctx.throw(403, { message: 'Forbidden' });
 
     const {
-      params: { id: _id },
+      params: { hash: hash },
       request: { body },
       user: { _id: userId },
     } = ctx
 
-    const post = await Post.findOne({ _id });
-    if (!post) ctx.throw(404, `Post with id "${_id}" not found`);
-    if (post.userId !== userId.toHexString()) ctx.throw(403, `Forbidden. Post with id "${_id}" dont belong to user with id ${userId}`);
+    const post = await Post.findOne({ hash });
+    if (!post) ctx.throw(404, `Post with id "${hash}" not found`);
+    if (post.userId !== userId.toHexString()) ctx.throw(403, `Forbidden. Post with id "${hash}" dont belong to user with id ${userId}`);
 
     post.set(_.pick(body, Post.createFields));
 
@@ -36,24 +36,30 @@ export default {
     ctx.body = { data: updatedPost };
   },
 
+  async getPost(ctx) {
+    const {
+      params: { hash: hash }
+    } = ctx
+
+    const post = await Post.findOne({ hash });
+    if (!post) ctx.throw(404, `Post with link "${hash}" not found`);
+
+    ctx.body = { data: post };
+  },
+
   async delete(ctx) {
     if (!ctx.user) ctx.throw(403, { message: 'Forbidden' });
 
     const {
-      params: { id: _id },
+      params: { hash: hash },
       user: { _id: userId },
     } = ctx
 
-    const post = await Post.findOne({ _id })
-    if (!post) ctx.throw(404, `Post with id "${_id}" not found`);
-    if (post.userId !== userId.toHexString()) ctx.throw(403, `Forbidden. Post with id "${_id}" dont belong to user with id ${userId}`);
+    const post = await Post.findOne({ hash })
+    if (!post) ctx.throw(404, `Post with id "${hash}" not found`);
+    if (post.userId !== userId.toHexString()) ctx.throw(403, `Forbidden. Post with id "${hash}" dont belong to user with id ${userId}`);
 
     await post.remove();
-    ctx.body = { data: { id: _id} };
-  },
-
-  getPost(ctx) {
-    const { post } = ctx;
-    ctx.body = { data: _.pick(post, Post.createFields) };
+    ctx.body = { data: { id: hash} };
   }
 };
