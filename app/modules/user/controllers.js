@@ -15,7 +15,7 @@ export default {
     if (!ctx.user) ctx.throw(403, { message: 'Forbidden' });
 
     const { user: { _id: userId } } = ctx;
-    const posts = await Post.find({ userId });
+    const posts = await Post.find({ userId }).select({ __v: 0 });
 
     ctx.body = { data: posts };
   }

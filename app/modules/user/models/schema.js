@@ -1,10 +1,6 @@
 import { Schema } from 'mongoose'
 
 export default new Schema({
-  hash: {
-    type: String,
-    unique: 'Hash mast be unique'
-  },
   email: {
     type: String,
     unique: 'User with email "{VALUE}" already exist',

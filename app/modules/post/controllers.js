@@ -10,7 +10,7 @@ export default {
       userId: ctx.user._id,
     });
 
-    const post = await Post.findOne({ _id });
+    const post = await Post.findOne({ _id }).select({ __v: 0 });
     if (!post) ctx.throw(404, `Post with id "${_id}" not found`);
 
     ctx.status = 201
@@ -26,7 +26,7 @@ export default {
       user: { _id: userId },
     } = ctx
 
-    const post = await Post.findOne({ _id });
+    const post = await Post.findOne({ _id }).select({ __v: 0 });
     if (!post) ctx.throw(404, `Post with id "${_id}" not found`);
     if (post.userId !== userId.toHexString()) ctx.throw(403, `Forbidden. Post with id "${_id}" dont belong to user with id ${userId}`);
 
@@ -41,7 +41,7 @@ export default {
       params: { id: _id }
     } = ctx
 
-    const post = await Post.findOne({ _id });
+    const post = await Post.findOne({ _id }).select({ __v: 0 });
     if (!post) ctx.throw(404, `Post with id "${_id}" not found`);
 
     ctx.body = { data: post };
@@ -55,7 +55,7 @@ export default {
       user: { _id: userId },
     } = ctx
 
-    const post = await Post.findOne({ _id })
+    const post = await Post.findOne({ _id }).select({ __v: 0 });
     if (!post) ctx.throw(404, `Post with id "${_id}" not found`);
     if (post.userId !== userId.toHexString()) ctx.throw(403, `Forbidden. Post with id "${_id}" dont belong to user with id ${userId}`);
 

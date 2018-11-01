@@ -5,7 +5,7 @@ import Services from '../../services'
 export default {
   async signUp(ctx) {
     const { _id } = await User.create(_.pick(ctx.request.body, User.createFields));
-    const user = await User.findOne({ _id });
+    const user = await User.findOne({ _id }).select({ __v: 0 });
 
     ctx.status = 201
     ctx.body = { data: user }
