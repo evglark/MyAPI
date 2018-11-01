@@ -1,7 +1,6 @@
 import mongoose from 'mongoose'
 import uniqueValidator from 'mongoose-unique-validator'
 import bcrypt from 'bcrypt'
-import uuid from 'uuid/v4'
 
 import userSchema from './schema'
 import userStatics from './statics'
@@ -19,8 +18,6 @@ UserSchema.pre('save', function(next) {
     const salt = bcrypt.genSaltSync(10);
     this.password = bcrypt.hashSync(this.password, salt);
   }
-
-  if (!this.hash) this.hash = uuid();
 
   next();
 });

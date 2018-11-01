@@ -4,8 +4,7 @@ import Services from '../../services'
 
 export default {
   async signUp(ctx) {
-    const userData = _.pick(ctx.request.body, User.createFields)
-    const { _id } = await User.create(userData);
+    const { _id } = await User.create(_.pick(ctx.request.body, User.createFields));
     const user = await User.findOne({ _id });
 
     ctx.status = 201
@@ -26,6 +25,7 @@ export default {
 
   async getInfoByToken(ctx) {
     if (!ctx.user) ctx.throw(403, { message: 'Forbidden' });
+
     ctx.body = ctx.user
   }
 };
