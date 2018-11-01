@@ -19,4 +19,4 @@ export default new Schema({
     required: true,
     trim: true
   }
-}, { timestamp: true });
+}, { timestamps: true });
