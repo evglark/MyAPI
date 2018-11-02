@@ -1,3 +1,3 @@
 export default {
-  createFields: ['hash', 'title', 'content']
+  createFields: ['title', 'content']
 }

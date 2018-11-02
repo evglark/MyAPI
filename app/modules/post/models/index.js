@@ -9,9 +9,4 @@ mongoose.plugin(uniqueValidator);
 const PostSchema = postSchema
 PostSchema.statics = postStatics
 
-// Middleware
-PostSchema.pre('save', function(next) {
-  next();
-});
-
 export default mongoose.model('post', PostSchema);

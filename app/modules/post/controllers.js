@@ -3,23 +3,23 @@ import Post from './models'
 
 export default {
   async create(ctx) {
-    if (!ctx.user) ctx.throw(403, { message: 'Forbidden' });
-
-    const { _id } = await Post.create({
+    const data = {
       ..._.pick(ctx.request.body, Post.createFields),
-      userId: ctx.user._id,
-    });
+      userId: ctx.user._id
+    };
 
-    const post = await Post.findOne({ _id }).select({ __v: 0 });
-    if (!post) ctx.throw(404, `Post with id "${_id}" not found`);
+    const { userId } = data;
 
-    ctx.status = 201
+    const postCountByUserId = await Post.count({ userId });
+    if (postCountByUserId === 3) throw Error('The user cannot create more 3 Summary');
+
+    const { _id } = await Post.create(data);
+    const post = await Post.find({ _id });
+
     ctx.body = { data: post };
   },
 
   async update(ctx) {
-    if (!ctx.user) ctx.throw(403, { message: 'Forbidden' });
-
     const {
       params: { id: _id },
       request: { body },
@@ -48,8 +48,6 @@ export default {
   },
 
   async delete(ctx) {
-    if (!ctx.user) ctx.throw(403, { message: 'Forbidden' });
-
     const {
       params: { id: _id },
       user: { _id: userId },

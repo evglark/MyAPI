@@ -1,10 +1,12 @@
 import Router from 'koa-router'
+import checkUser from '../user/heandlers/checkUser'
+
 import postController from './controllers'
 
 const router = new Router({ prefix: '/post' })
-    .post('/', postController.create)
-    .put('/:id', postController.update)
+    .post('/', checkUser(), postController.create)
+    .put('/:id', checkUser(), postController.update)
     .get('/:id', postController.getPost)
-    .delete('/:id', postController.delete)
+    .delete('/:id', checkUser(), postController.delete)
 
 export default router.routes();
