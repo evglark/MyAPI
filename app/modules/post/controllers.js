@@ -8,10 +8,10 @@ export default {
       userId: ctx.user._id
     };
 
-    const { userId } = data;
-
-    const postCountByUserId = await Post.count({ userId });
-    if (postCountByUserId === 3) throw Error('The user cannot create more 3 Summary');
+    // Posts limited
+    // const { userId } = data;
+    // const postCountByUserId = await Post.count({ userId });
+    // if (postCountByUserId === 3) throw Error('The user cannot create more 3 Summary');
 
     const { _id } = await Post.create(data);
     const post = await Post.find({ _id });
