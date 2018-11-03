@@ -24,8 +24,6 @@ export default {
   },
 
   async getInfoByToken(ctx) {
-    if (!ctx.user) ctx.throw(403, { message: 'Forbidden' });
-
     ctx.body = ctx.user
   }
 };

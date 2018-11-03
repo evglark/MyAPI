@@ -27,24 +27,12 @@ export default {
     } = ctx
 
     const post = await Post.findOne({ _id }).select({ __v: 0 });
-    if (!post) ctx.throw(404, `Post with id "${_id}" not found`);
+
     if (post.userId !== userId.toHexString()) ctx.throw(403, `Forbidden. Post with id "${_id}" dont belong to user with id ${userId}`);
-
     post.set(_.pick(body, Post.createFields));
-
     const updatedPost = await post.save();
+
     ctx.body = { data: updatedPost };
-  },
-
-  async getPost(ctx) {
-    const {
-      params: { id: _id }
-    } = ctx
-
-    const post = await Post.findOne({ _id }).select({ __v: 0 });
-    if (!post) ctx.throw(404, `Post with id "${_id}" not found`);
-
-    ctx.body = { data: post };
   },
 
   async delete(ctx) {
@@ -54,10 +42,27 @@ export default {
     } = ctx
 
     const post = await Post.findOne({ _id }).select({ __v: 0 });
-    if (!post) ctx.throw(404, `Post with id "${_id}" not found`);
-    if (post.userId !== userId.toHexString()) ctx.throw(403, `Forbidden. Post with id "${_id}" dont belong to user with id ${userId}`);
 
+    if (post.userId !== userId.toHexString()) ctx.throw(403, `Forbidden. Post with id "${_id}" dont belong to user with id ${userId}`);
     await post.remove();
+
     ctx.body = { data: { id: _id} };
+  },
+
+  async getPost(ctx) {
+    const {
+      params: { id: _id }
+    } = ctx
+
+    const post = await Post.findOne({ _id }).select({ __v: 0 });
+
+    ctx.body = { data: post };
+  },
+
+  async getUserPosts(ctx) {
+    const { user: { _id: userId } } = ctx;
+    const posts = await Post.find({ userId }).select({ __v: 0 });
+
+    ctx.body = { data: posts };
   }
 };
