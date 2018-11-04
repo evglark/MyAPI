@@ -1,8 +1,7 @@
 import Router from 'koa-router'
-import checkUser from './heandlers/checkUser'
-
 import PostController from '../post/controllers'
 import UserController from './controllers'
+import checkUser from './helpers/checkUser'
 
 const router = new Router({ prefix: '/user' })
     .get('/current', checkUser(), UserController.getCurrentUser)

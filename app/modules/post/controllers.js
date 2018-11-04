@@ -64,5 +64,29 @@ export default {
     const posts = await Post.find({ userId }).select({ __v: 0 });
 
     ctx.body = { data: posts };
+  },
+
+  async searchPosts(ctx) {
+    const MAX_SIZE = 20
+    const PAGE = 1
+    const queryParams = _.pick(ctx.request.query, ['title', 'content', 'size', 'page']);
+    const filter = {
+      title: queryParams.title || '',
+      content: queryParams.content || '',
+      size: parseInt(queryParams.size),
+      page: parseInt(queryParams.page)
+    }
+    if (!filter.size || filter.size > MAX_SIZE) filter.size = MAX_SIZE
+    if (!filter.page) filter.page = PAGE
+
+    const query = {}
+    if (filter.title) query.title = { $regex: filter.title }
+    if (filter.content) query.content = { $in: filter.content }
+
+    const count = await Post.count(query).sort({ updatedAt: '-1' });
+    const pages = Math.ceil(count / filter.size);
+    const post = await Post.find(query).sort({ updatedAt: '-1' }).limit(filter.size).skip((filter.pages - 1) * filter.size);
+
+    ctx.body = { data: post, filter, count, pages }
   }
 };

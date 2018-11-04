@@ -1,11 +1,11 @@
 import Router from 'koa-router'
-import checkUser from '../user/heandlers/checkUser'
-import checkPost from './handlers/checkPost'
-
 import postController from './controllers'
+import checkUser from '../user/helpers/checkUser'
+import checkPost from './helpers/checkPost'
 
 const router = new Router({ prefix: '/post' })
     .post('/', checkUser(), postController.create)
+    .get('/', postController.searchPosts)
 
     .param('id', checkPost())
     .put('/:id', checkUser(), postController.update)
