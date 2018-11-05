@@ -6,6 +6,8 @@
   "scripts": {
     "start": "babel-node app/server",
     "dev": "nodemon --exec 'yarn lint && yarn start'",
+    "prod": "NODE_ENV=production babel-node app/server",
+    "test": "NODE_ENV=test babel-node app/server",
     "lint": "eslint app",
     "lint:fix": "eslint --fix app"
   },

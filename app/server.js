@@ -7,7 +7,7 @@ connect.mongoose(MONGO_URL);
 
 const server = app.listen(PORT, (err) => {
   if (err) console.error(err);
-  console.log(`${ENV} MODE ON`);
+  console.log(`${ENV.toUpperCase()} MODE ON`);
 
   console.log(`\n//...`);
   console.log(`Server is running on port: ${PORT}`);
