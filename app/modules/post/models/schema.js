@@ -15,4 +15,9 @@ export default new Schema({
     required: true,
     trim: true
   }
-}, { timestamps: true });
+}, {
+  timestamps: true,
+  toJSON: {
+    virtuals: true
+  }
+});

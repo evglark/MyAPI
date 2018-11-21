@@ -85,7 +85,13 @@ export default {
 
     const count = await Post.count(query).sort({ updatedAt: '-1' });
     const pages = Math.ceil(count / filter.size);
-    const post = await Post.find(query).sort({ updatedAt: '-1' }).limit(filter.size).skip((filter.pages - 1) * filter.size);
+
+    const post = await Post
+        .find(query)
+        .populate('user', { password: 0 })
+        .sort({ updatedAt: '-1' })
+        .limit(filter.size)
+        .skip((filter.pages - 1) * filter.size);
 
     ctx.body = { data: post, filter, count, pages }
   }
