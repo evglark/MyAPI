@@ -13,4 +13,4 @@ const router = new Router({ prefix: '/post' })
     .get('/:id', postController.getPost)
 
 
-export default router.routes();
+export default router.routes()

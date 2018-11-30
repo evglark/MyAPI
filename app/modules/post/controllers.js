@@ -6,17 +6,17 @@ export default {
     const data = {
       ..._.pick(ctx.request.body, Post.createFields),
       userId: ctx.user._id
-    };
+    }
 
     // Posts limited
     // const { userId } = data;
     // const postCountByUserId = await Post.count({ userId });
     // if (postCountByUserId === 3) throw Error('The user cannot create more 3 Summary');
 
-    const { _id } = await Post.create(data);
-    const post = await Post.find({ _id });
+    const { _id } = await Post.create(data)
+    const post = await Post.find({ _id })
 
-    ctx.body = { data: post };
+    ctx.body = { data: post }
   },
 
   async update(ctx) {
@@ -26,13 +26,13 @@ export default {
       user: { _id: userId },
     } = ctx
 
-    const post = await Post.findOne({ _id }).select({ __v: 0 });
+    const post = await Post.findOne({ _id }).select({ __v: 0 })
 
-    if (post.userId !== userId.toHexString()) ctx.throw(403, `Forbidden. Post with id "${_id}" dont belong to user with id ${userId}`);
-    post.set(_.pick(body, Post.createFields));
-    const updatedPost = await post.save();
+    if (post.userId !== userId.toHexString()) ctx.throw(403, `Forbidden. Post with id "${_id}" dont belong to user with id ${userId}`)
+    post.set(_.pick(body, Post.createFields))
+    const updatedPost = await post.save()
 
-    ctx.body = { data: updatedPost };
+    ctx.body = { data: updatedPost }
   },
 
   async delete(ctx) {
@@ -41,12 +41,12 @@ export default {
       user: { _id: userId },
     } = ctx
 
-    const post = await Post.findOne({ _id }).select({ __v: 0 });
+    const post = await Post.findOne({ _id }).select({ __v: 0 })
 
-    if (post.userId !== userId.toHexString()) ctx.throw(403, `Forbidden. Post with id "${_id}" dont belong to user with id ${userId}`);
-    await post.remove();
+    if (post.userId !== userId.toHexString()) ctx.throw(403, `Forbidden. Post with id "${_id}" dont belong to user with id ${userId}`)
+    await post.remove()
 
-    ctx.body = { data: { id: _id} };
+    ctx.body = { data: { id: _id} }
   },
 
   async getPost(ctx) {
@@ -54,22 +54,22 @@ export default {
       params: { id: _id }
     } = ctx
 
-    const post = await Post.findOne({ _id }).select({ __v: 0 });
+    const post = await Post.findOne({ _id }).select({ __v: 0 })
 
-    ctx.body = { data: post };
+    ctx.body = { data: post }
   },
 
   async getUserPosts(ctx) {
-    const { user: { _id: userId } } = ctx;
-    const posts = await Post.find({ userId }).select({ __v: 0 });
+    const { user: { _id: userId } } = ctx
+    const posts = await Post.find({ userId }).select({ __v: 0 })
 
-    ctx.body = { data: posts };
+    ctx.body = { data: posts }
   },
 
   async searchPosts(ctx) {
     const MAX_SIZE = 20
     const PAGE = 1
-    const queryParams = _.pick(ctx.request.query, ['title', 'content', 'size', 'page']);
+    const queryParams = _.pick(ctx.request.query, ['title', 'content', 'size', 'page'])
     const filter = {
       title: queryParams.title || '',
       content: queryParams.content || '',
@@ -84,13 +84,13 @@ export default {
     if (filter.title) query.title = { $regex: filter.title }
     if (filter.content) query.content = { $in: filter.content }
 
-    const count = await Post.count(query).sort({ updatedAt: '-1' });
-    const pages = Math.ceil(count / filter.size);
+    const count = await Post.count(query).sort({ updatedAt: '-1' })
+    const pages = Math.ceil(count / filter.size)
 
     const post = await Post.find(query).select({ __v: 0 })
         .sort({ updatedAt: '-1' }).populate('user', { password: 0, __v: 0 })
-        .limit(filter.size).skip((filter.pages - 1) * filter.size);
+        .limit(filter.size).skip((filter.pages - 1) * filter.size)
 
     ctx.body = { data: post, filter, count, pages }
   }
-};
+}

@@ -7,4 +7,4 @@ const router = new Router({ prefix: '/user' })
     .get('/current', checkUser(), UserController.getCurrentUser)
     .get('/:id/posts', checkUser(), PostController.getUserPosts)
 
-export default router.routes();
+export default router.routes()

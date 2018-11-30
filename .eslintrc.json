@@ -13,7 +13,7 @@
     "object-curly-spacing": 0,
     "max-len": 0,
     "require-jsdoc": 0,
-    "semi": [0, "always"],
+    "semi": ["error", "never", { "beforeStatementContinuationChars": "always"}],
     "no-invalid-this": 0,
     "comma-dangle": 0
   }

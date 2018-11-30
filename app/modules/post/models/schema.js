@@ -20,4 +20,4 @@ export default new Schema({
   toJSON: {
     virtuals: true
   }
-});
+})
