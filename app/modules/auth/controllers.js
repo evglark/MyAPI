@@ -15,11 +15,13 @@ export default {
     const { email, password } = ctx.request.body
     if (!email || !password) ctx.throw(400, { message: 'Invalid data' });
 
-    const user = await User.findOne({ email }).select({ createdAt: 0, updatedAt: 0, __v: 0 });
+    const user = await User.findOne({ email });
     if (!user) ctx.throw(400, { message: 'User not found' });
-    if (!user.comparePasswords(password)) ctx.throw(400, { message: 'Invalid password' });
-    const token = await Services.JWT.genToken({ email });
+    if (!user.comparePasswords(password)) ctx.throw(400, { message: 'Invalid password' })
 
-    ctx.body = { data: { token: token, user: user } }
+    const dataUser = await await User.findOne({ email }).select({ password: 0, createdAt: 0, updatedAt: 0, __v: 0 });
+    const dataToken = await Services.JWT.genToken({ email });
+
+    ctx.body = { data: { token: dataToken, user: dataUser } }
   }
 }

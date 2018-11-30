@@ -76,6 +76,7 @@ export default {
       size: parseInt(queryParams.size),
       page: parseInt(queryParams.page)
     }
+
     if (!filter.size || filter.size > MAX_SIZE) filter.size = MAX_SIZE
     if (!filter.page) filter.page = PAGE
 
@@ -86,12 +87,9 @@ export default {
     const count = await Post.count(query).sort({ updatedAt: '-1' });
     const pages = Math.ceil(count / filter.size);
 
-    const post = await Post
-        .find(query)
-        .populate('user', { password: 0 })
-        .sort({ updatedAt: '-1' })
-        .limit(filter.size)
-        .skip((filter.pages - 1) * filter.size);
+    const post = await Post.find(query).select({ __v: 0 })
+        .sort({ updatedAt: '-1' }).populate('user', { password: 0, __v: 0 })
+        .limit(filter.size).skip((filter.pages - 1) * filter.size);
 
     ctx.body = { data: post, filter, count, pages }
   }
