@@ -3,7 +3,9 @@ import Router from 'koa-router'
 import authController from './controllers'
 
 const router = new Router({ prefix: '/auth' })
-    .post('/signup', authController.signUp)
-    .post('/signin', authController.signIn)
+    .post('/sign-up', authController.signUp)
+    .post('/sign-in', authController.signIn)
+    .get('/private', authController.getByToken)
+
 
 export default router.routes()

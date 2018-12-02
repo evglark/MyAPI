@@ -23,5 +23,10 @@ export default {
     const dataToken = await Services.JWT.genToken({ email })
 
     ctx.body = { data: { token: dataToken, user: dataUser } }
+  },
+
+  async getByToken(ctx) {
+    if (!ctx.user) ctx.throw(403, { message: 'Forbidden' })
+    ctx.body = ctx.user
   }
 }
