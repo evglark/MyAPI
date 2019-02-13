@@ -5,6 +5,7 @@ export default {
   genToken(data) {
     return JsonWebToken.sign(data, JW_TOKEN)
   },
+
   verify(token) {
     return JsonWebToken.verify(token, JW_TOKEN)
   },

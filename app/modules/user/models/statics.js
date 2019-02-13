@@ -1,3 +1,8 @@
 export default {
-  createFields: ['email', 'password', 'firstName', 'lastName']
+  createFields: [
+    'email',
+    'password',
+    'firstName',
+    'lastName'
+  ]
 }

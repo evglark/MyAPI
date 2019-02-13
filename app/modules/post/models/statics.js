@@ -1,3 +1,6 @@
 export default {
-  createFields: ['title', 'content']
+  createFields: [
+    'title',
+    'content'
+  ]
 }
